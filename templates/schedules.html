@@ -1,0 +1,43 @@
+{%extends 'base.html'%}
+
+{% block title %}
+    Schedules
+{% endblock %}
+
+{% block content %}
+{{message}}
+<div class="justify-content-center d-block w-50 p-3">
+    <h1>Agregar Agendamientos</h1><br>
+    <form action="" method="post">
+    {% csrf_token %}
+    <table>
+        {{form.as_table}}
+    </table>
+    <input type="submit" value="Agendar">
+    </form>
+</div>
+<div class="nav justify-content-center d-block w-50 p-3">
+    <h2>Agendamientos</h2>
+    <ul class="list-group list-group-flush text-dark">
+        
+    
+        
+    </ul>
+    <table class="table">
+        <thead>
+          <tr class="table-info">
+            <th scope="col">Cliente</th>
+            <th scope="col">Servicio Brindado</th>
+          </tr>
+        </thead>
+        <tbody>
+            {%for schedule in schedules%}
+            <tr>
+                <td class="table-light">{{schedule.cliente}}</li>
+                <td class="table-light">{{schedule.services}}</li>
+            </tr>
+            {%endfor%}
+        </tbody>
+      </table>
+</div>
+{% endblock %}

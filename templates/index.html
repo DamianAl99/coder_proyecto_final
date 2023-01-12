@@ -1,0 +1,38 @@
+{%extends 'base.html'%}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block content %}
+<div class="nav justify-content-center">
+    <h1>Hola, sientete libre de explorar nuestros 
+        <ul>
+            <li>Servicios</li>
+            <li>Clientes</li>
+            <li>Agendamientos (;</li>
+        </ul>
+    </h1>
+</div>
+<div class="nav justify-content-center d-block w-50 p-3">
+    <h2>Servicios</h2>
+    <table class="table">
+        <thead>
+          <tr class="table-info">
+            <th scope="col">Service</th>
+            <th scope="col">Duration</th>
+            <th scope="col">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+            {%for service in services%}
+            <tr>
+                <td class="table-light">{{service.name}}</li>
+                <td class="table-light">{{service.duration}}</li>
+                <td class="table-light">{{service.description}}</li>
+            </tr>
+            {%endfor%}
+        </tbody>
+      </table>
+</div>
+{% endblock %}
