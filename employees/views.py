@@ -9,29 +9,37 @@ def get_clientes(request):
     return render(request, 'employees.html', context=context)
 
 def create_clients(request):
-    print(request.method)
     if request.method == 'POST':
-        form = EmployeesForm(request.POST)
-        if form.is_valid():
-            Employees.objects.create(
-                name=form.cleaned_data['name'],
-                age=form.cleaned_data['age'],
-                ci=form.cleaned_data['ci'],
-            )
-            form.clean()
+        try:
+            form = EmployeesForm(request.POST)
+            if form.is_valid():
+                Employees.objects.create(
+                    name=form.cleaned_data['name'],
+                    age=form.cleaned_data['age'],
+                    ci=form.cleaned_data['ci'],
+                )
+                form.clean()
+                context = {
+                    'message': 'Empleado creado exitosamente',
+                    'employees': Employees.objects.all(),
+                    'form': EmployeesForm()
+                }
+                return render(request, 'employees.html', context=context)
+            else:
+                context = {
+                    'message': form.errors,
+                    'form': EmployeesForm(),
+                    'employees': Employees.objects.all()
+                }
+                return render(request, 'employees.html', context=context)
+        except:
             context = {
-                'message': 'Empleado creado exitosamente',
-                'employees': Employees.objects.all(),
-                'form': EmployeesForm()
-            }
+                    'message': "hubo un error al crear el cliente",
+                    'form': EmployeesForm(),
+                    'employees': Employees.objects.all()
+                }
             return render(request, 'employees.html', context=context)
-        else:
-            context = {
-                'message': form.errors,
-                'form': EmployeesForm(),
-                'employees': Employees.objects.all()
-            }
-            return render(request, 'employees.html', context=context)
+
     if request.method == 'GET':
         context = {
                 'employees': Employees.objects.all(),
